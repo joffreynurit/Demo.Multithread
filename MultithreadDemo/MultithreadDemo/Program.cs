@@ -4,86 +4,34 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MultithreadDemo
+namespace SimpleMultithreadDemo
 {
     class Program
     {
+        /// <summary>
+        /// You can comment / uncomment call to function to see different exemples for sync / async works
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //SimpleExemple.SimpleDemoSync();
+            //SimpleExemple.SimpleDemoAsync();
 
-            WatchProcessDuration(Process);
-            WatchProcessDuration(ProcessThreaded);
-            WatchProcessDuration(ProcessLoopThreaded);
-            WatchProcessDuration(ProcessAllThreaded);
-        }
+            FileExample.FileDemo();
+            //FileExemple.AwaitedFileDemo();
 
-        static private int Process(List<Star> stars)
-        {
-            stars.ForEach(star =>
-            {
-                star.LoopIds.ForEach(loopId =>
-                {
-                    //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - begin");
-                    Thread.Sleep(star.WaitTime);
-                    //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - end");
-                });
-            });
-
-            return 1;
+            //PrepareAndWatchLoopProcessDuration(LoopExemple.Process);
+            //PrepareAndWatchLoopProcessDuration(LoopExemple.ProcessThreaded);
+            //PrepareAndWatchLoopProcessDuration(LoopExemple.ProcessLoopThreaded);
+            //PrepareAndWatchLoopProcessDuration(LoopExemple.ProcessAllThreaded);
         }
 
         /// <summary>
-        /// Simulation of a process who need to use multithread
+        /// Global function to prepare data and watch execution time of the function
         /// </summary>
-        static private int ProcessThreaded(List<Star> stars)
+        /// <param name="callback"></param>
+        static private void PrepareAndWatchLoopProcessDuration(Func<List<Star>, int> callback)
         {
-            _ = Parallel.ForEach(stars, star =>
-              {
-                  star.LoopIds.ForEach(loopId =>
-                  {
-                      //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - begin");
-                      Thread.Sleep(star.WaitTime);
-                      //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - end");
-                  });
-              });
-
-            return 1;
-        }
-
-        static private int ProcessLoopThreaded(List<Star> stars)
-        {
-            stars.ForEach(star =>
-            {
-                _ = Parallel.ForEach(star.LoopIds, loopId =>
-                {
-                    //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - begin");
-                    Thread.Sleep(star.WaitTime);
-                    //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - end");
-                });
-            });
-
-            return 1;
-        }
-
-        static private int ProcessAllThreaded(List<Star> stars)
-        {
-            _ = Parallel.ForEach(stars, star =>
-            {
-                _ = Parallel.ForEach(star.LoopIds, loopId =>
-                {
-                    //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - begin");
-                    Thread.Sleep(star.WaitTime);
-                    //Console.WriteLine("Process " + star.Name + " thread #" + loopId + " - end");
-                });
-            });
-
-            return 1;
-        }
-
-        static private void WatchProcessDuration(Func<List<Star>, int> callback)
-        {
-
             Stopwatch stopWatch = Stopwatch.StartNew();
 
             var stars = new List<Star>()
@@ -99,40 +47,6 @@ namespace MultithreadDemo
             stopWatch.Stop();
             TimeSpan timespan = stopWatch.Elapsed;
             Console.WriteLine(callback.Method.Name + " => " + timespan.TotalSeconds.ToString("0.0###") + " sc");
-        }
-    }
-
-    /// <summary>
-    /// A simple class, for demo purpose
-    /// </summary>
-    public class Star
-    {
-        /// <summary>
-        /// Name of the process
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// In ms
-        /// </summary>
-        public int WaitTime { get; set; }
-
-        /// <summary>
-        /// Number of loop for our multithread demo
-        /// </summary>
-        public int NumberOfLoop { get; set; }
-
-        public List<int> LoopIds { 
-            get
-            {
-                var loops = new List<int>();
-                for (var i = 0; i < NumberOfLoop; i++)
-                {
-                    loops.Add(i);
-                }
-
-                return loops;
-            } 
         }
     }
 }
