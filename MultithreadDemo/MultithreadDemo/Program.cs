@@ -17,13 +17,13 @@ namespace SimpleMultithreadDemo
             //SimpleExemple.SimpleDemoSync();
             //SimpleExemple.SimpleDemoAsync();
 
-            FileExample.FileDemo();
+            //FileExample.FileDemo();
             //FileExemple.AwaitedFileDemo();
 
-            //PrepareAndWatchLoopProcessDuration(LoopExemple.Process);
-            //PrepareAndWatchLoopProcessDuration(LoopExemple.ProcessThreaded);
-            //PrepareAndWatchLoopProcessDuration(LoopExemple.ProcessLoopThreaded);
-            //PrepareAndWatchLoopProcessDuration(LoopExemple.ProcessAllThreaded);
+            PrepareAndWatchLoopProcessDuration(LoopExample.Process);
+            PrepareAndWatchLoopProcessDuration(LoopExample.ProcessThreaded);
+            PrepareAndWatchLoopProcessDuration(LoopExample.ProcessLoopThreaded);
+            PrepareAndWatchLoopProcessDuration(LoopExample.ProcessAllThreaded);
         }
 
         /// <summary>

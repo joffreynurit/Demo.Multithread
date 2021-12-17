@@ -16,28 +16,43 @@ namespace SimpleMultithreadDemo
         {
             var path = "d:/WriteLinesNotAwaited.txt";
             WriteInFile(path, "First line");
-            var asyncTask = new Task(() => { WriteInFile(path, "Second line"); });
-            asyncTask.Start();
+            _ = Task.Run(() => { WriteInFile(path, "Second line"); });
+            _ = WriteInFileAsync(path, "Third line");
         }
 
-        static public void AwaitedFileDemo()
+        static public async Task AwaitedFileDemoAsync()
         {
             var path = "d:/WriteLinesAwaited.txt";
             WriteInFile(path, "First line");
-            var asyncTask = new Task(() => { WriteInFile(path, "Second line"); });
-            asyncTask.Start();
-
-            asyncTask.Wait();
+            await Task.Run(() => { WriteInFile(path, "Second line"); });
+            await WriteInFileAsync(path, "Third line");
         }
 
+        /// <summary>
+        /// Basic method to write in a file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="txt"></param>
         static private void WriteInFile(string path, string txt)
         {
+            //We need to wait the process to be synchrone. We can't use "await" is the method isn't "async"
+            WriteInFileAsync(path, txt).Wait();
+        }
+
+        /// <summary>
+        /// Async method to write in a file on the filesystem
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="txt"></param>
+        static private async Task WriteInFileAsync(string path, string txt)
+        {
+            //Simulation of a long process
             Thread.Sleep(1000);
 
             // Write the string array to a new file named "WriteLines.txt".
             using (StreamWriter outputFile = new StreamWriter(path, append: true))
             {
-                outputFile.WriteLine(txt);
+                await outputFile.WriteLineAsync(txt);
             }
         }
     }
