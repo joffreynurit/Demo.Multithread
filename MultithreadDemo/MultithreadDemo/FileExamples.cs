@@ -10,8 +10,9 @@ namespace SimpleMultithreadDemo
 {
     /// <summary>
     /// </summary>
-    public static class FileExample
+    public static class FileExamples
     {
+
         static public void FileDemo()
         {
             var path = "d:/WriteLinesNotAwaited.txt";
@@ -20,12 +21,14 @@ namespace SimpleMultithreadDemo
             _ = WriteInFileAsync(path, "Third line");
         }
 
-        static public async Task AwaitedFileDemoAsync()
+        static public async Task<bool> AwaitedFileDemoAsync()
         {
             var path = "d:/WriteLinesAwaited.txt";
             WriteInFile(path, "First line");
             await Task.Run(() => { WriteInFile(path, "Second line"); });
             await WriteInFileAsync(path, "Third line");
+
+            return true;
         }
 
         /// <summary>
@@ -44,7 +47,7 @@ namespace SimpleMultithreadDemo
         /// </summary>
         /// <param name="path"></param>
         /// <param name="txt"></param>
-        static private async Task WriteInFileAsync(string path, string txt)
+        static public async Task WriteInFileAsync(string path, string txt)
         {
             //Simulation of a long process
             Thread.Sleep(1000);

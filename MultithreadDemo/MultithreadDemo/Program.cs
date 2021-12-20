@@ -12,18 +12,25 @@ namespace SimpleMultithreadDemo
         /// You can comment / uncomment call to function to see different exemples for sync / async works
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            //SimpleExemple.SimpleDemoSync();
-            //SimpleExemple.SimpleDemoAsync();
+            //SimpleExemples.SimpleDemoSync();
+            //SimpleExemples.SimpleDemoAsync();
 
-            //FileExample.FileDemo();
-            //FileExemple.AwaitedFileDemo();
+            //FileExamples.FileDemo();
+            //Si the function was awaited, the return type is a bool. If we don't wait, we cannot guss the result, so only a Task is return
+            //Console.WriteLine(await FileExamples.AwaitedFileDemoAsync());
 
-            PrepareAndWatchLoopProcessDuration(LoopExample.Process);
-            PrepareAndWatchLoopProcessDuration(LoopExample.ProcessThreaded);
-            PrepareAndWatchLoopProcessDuration(LoopExample.ProcessLoopThreaded);
-            PrepareAndWatchLoopProcessDuration(LoopExample.ProcessAllThreaded);
+            //A simple demo with console log to watch exeptions on await or not await process
+            //await ErrorsExamples.DemoCatchException();
+
+            await ErrorsExamples.DemoAsyncProcessCutBeforeEnd();
+
+            //PrepareAndWatchLoopProcessDuration(LoopExamples.Process);
+            //PrepareAndWatchLoopProcessDuration(LoopExamples.ProcessThreaded);
+            //PrepareAndWatchLoopProcessDuration(LoopExamples.ProcessLoopThreaded);
+            //PrepareAndWatchLoopProcessDuration(LoopExamples.ProcessAllThreaded);
+
         }
 
         /// <summary>

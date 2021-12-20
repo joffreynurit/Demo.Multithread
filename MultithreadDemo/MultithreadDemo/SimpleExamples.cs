@@ -11,7 +11,7 @@ namespace SimpleMultithreadDemo
     /// <summary>
     /// Class with 2 methods to easily compare sync and async 
     /// </summary>
-    public static class SimpleExample
+    public static class SimpleExamples
     {
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace SimpleMultithreadDemo
     /// <summary>
     /// Class with test on enumerable datas
     /// </summary>
-    public static class LoopExample
+    public static class LoopExamples
     {
         static public int Process(List<Star> stars)
         {
