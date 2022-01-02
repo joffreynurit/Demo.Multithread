@@ -55,39 +55,19 @@ namespace SimpleMultithreadDemo
             var useAsyncTimer = true;
 
             //Create an entry to wee than the process is correct
-            await ProcessWithTimer(1, useAsyncTimer);
+            await SimpleExamples.ProcessWithTimer(1, useAsyncTimer);
 
             //Not awaited process, but the total sleep in this main process enough to let this async call write in the file
-            _ = ProcessWithTimer(2, useAsyncTimer);
+            _ = SimpleExamples.ProcessWithTimer(2, useAsyncTimer);
 
             await Task.Delay(500);
 
             //Not awaited process to see the bug
-            _ = ProcessWithTimer(3, useAsyncTimer);
+            _ = SimpleExamples.ProcessWithTimer(3, useAsyncTimer);
 
             //Need to be less than the total time of ProcessWithTimer, to see the process3 cut when running asynchrously,
             //but the total of 2 sleep need to be more enough to finish the process 2
             await Task.Delay(600);
-        }
-
-
-        /// <summary>
-        /// This function can be use as async when useAsyncTimer = true
-        /// If useAsyncTimer = false, this function was always executed synchroniously, with or without await
-        /// </summary>
-        /// <param name="processNumber"></param>
-        /// <param name="useAsyncTimer"></param>
-        /// <returns></returns>
-        public static async Task ProcessWithTimer(int processNumber, bool useAsyncTimer = true)
-        {
-            Console.WriteLine("Before sleep : " + processNumber + " - " + DateTime.Now.ToString("mm:ss"));
-
-            if (useAsyncTimer)
-                await Task.Delay(1000);
-            else
-                Thread.Sleep(1000);
-
-            Console.WriteLine("After sleep : " + processNumber + " - " + DateTime.Now.ToString("mm:ss"));
         }
 
         public static async Task FalseAsyncFunction()

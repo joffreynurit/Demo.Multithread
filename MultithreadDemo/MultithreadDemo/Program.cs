@@ -24,12 +24,18 @@ namespace SimpleMultithreadDemo
             //A simple demo with console log to watch exeptions on await or not await process
             //await ErrorsExamples.DemoCatchException();
 
-            await ErrorsExamples.DemoAsyncProcessCutBeforeEnd();
+            //await ErrorsExamples.DemoAsyncProcessCutBeforeEnd();
 
             //PrepareAndWatchLoopProcessDuration(LoopExamples.Process);
             //PrepareAndWatchLoopProcessDuration(LoopExamples.ProcessThreaded);
             //PrepareAndWatchLoopProcessDuration(LoopExamples.ProcessLoopThreaded);
             //PrepareAndWatchLoopProcessDuration(LoopExamples.ProcessAllThreaded);
+
+            //LoopExamples.LoopWithSyncProcess();
+            //LoopExamples.LoopWithAsyncProcess();
+            //await LoopExamples.LoopCanManagesAsyncProcessAsync();
+
+            await LoopExamples.LoopLockTest();
 
         }
 

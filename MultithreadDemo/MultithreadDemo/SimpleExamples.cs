@@ -81,5 +81,25 @@ namespace SimpleMultithreadDemo
             Thread.Sleep(2 * 1000);
             Console.WriteLine("End - Light task done at " + DateTime.Now.TimeOfDay);
         }
+
+
+        /// <summary>
+        /// This function can be use as async when useAsyncTimer = true
+        /// If useAsyncTimer = false, this function was always executed synchroniously, with or without await
+        /// </summary>
+        /// <param name="processNumber"></param>
+        /// <param name="useAsyncTimer"></param>
+        /// <returns></returns>
+        public static async Task ProcessWithTimer(int processNumber, bool useAsyncTimer = true)
+        {
+            Console.WriteLine("Before sleep : " + processNumber + " - " + DateTime.Now.ToString("mm:ss"));
+
+            if (useAsyncTimer)
+                await Task.Delay(1000);
+            else
+                Thread.Sleep(1000);
+
+            Console.WriteLine("After sleep : " + processNumber + " - " + DateTime.Now.ToString("mm:ss"));
+        }
     }
 }
